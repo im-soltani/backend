@@ -1,0 +1,920 @@
+﻿enum Role {
+  ADMIN
+  CANDIDAT
+  ENTREPRISE
+  ECOLE
+  ANONYMOUS
+}
+
+enum ApplicationState {
+  PENDING
+  ACCEPTED
+  CANCELED
+  REFUSED
+}
+
+enum OfferState {
+  DRAFT
+  ACTIF
+  PUBLISHED
+  ON_HOLD
+  ON_HOLD_BY_ADMIN
+  ARCHIVED
+  DELETED
+}
+enum DureeFormationState {
+  THREE_MONTH
+  SIX_MONTH
+  ONE_YEAR
+  SIXTEEN_MONTH
+  TWO_YEARS
+  THREE_YEARS
+}
+enum TypeFormationState {
+  Alternance
+  Continue
+}
+enum ContractType {
+  CDD
+  STAGE
+  CDI
+  FREELENCE
+  ALTERNANCE
+}
+
+enum ExperienceType {
+  ONE
+  TWO
+  THREE
+  FOUR
+  FIVE
+  MORE_THAN_FIVE
+}
+
+enum EdtueType {
+  ONE
+  TWO
+  THREE
+  FOUR
+  FIVE
+  MORE_THAN_FIVE
+}
+
+enum WorkTimeType {
+  FULL
+  HALF
+  ANY
+}
+scalar Upload
+
+input LocationInput {
+  latitude: Float
+  longitude: Float
+}
+
+input AdminInput {
+  email: String!
+  password: String!
+}
+
+input AdminAddInput {
+  email: String!
+  password: String!
+  first_name: String!
+  last_name: String!
+}
+
+input CandidatInput {
+  first_name: String!
+  profile_pic_url: String
+  last_name: String!
+  email: String!
+  password: String!
+  tel: String!
+  address: String
+}
+
+input CandidatEntrepriseInput {
+  first_name: String!
+  last_name: String!
+}
+
+input EntrepriseInput {
+  profile_pic_url: String
+  email: String!
+  password: String
+  name: String!
+  banner: String
+  activity: [String]
+  tel: String!
+  website: String
+  description: String
+  name_of_in_charge: String
+  application_email: String
+  member_number: String
+  company_id: String
+  location: LocationInput
+  effective: String
+  address: String
+  country: String
+  city: String
+  zip_code: String
+  address_2: String
+  country_2: String
+  city_2: String
+  zip_code_2: String
+  ent_type: String
+  leader: Boolean
+  leaderUid: String
+  prenom: String
+  youtubeLink: String
+  linkedinLink: String
+}
+input EntrepriseProfileInput {
+  email: String!
+  name: String!
+  prenom: String!
+  leaderUid: String!
+}
+
+input UpdateEntrepriseInput {
+  email: String
+  password: String
+  name: String
+  effective: String
+  banner: String
+  activity: [String]
+  tel: String
+  website: String
+  description: String
+  name_of_in_charge: String
+  application_email: String
+  location: LocationInput
+  address: String
+  company_id: String
+  country: String
+  city: String
+  zip_code: String
+  address_2: String
+  country_2: String
+  city_2: String
+  ent_type: String
+  zip_code_2: String
+  youtubeLink: String
+  linkedinLink: String
+}
+input UpdateUserInput {
+  profileEmail: String
+  profileName: String
+  profilePrenom: String
+}
+
+input CandidatDetailsInput {
+  last_name: String
+  first_name: String
+  age: String
+  sexe: String
+  tel: String
+  email: String
+  address: String
+  country: String
+  city: String
+  zip_code: String
+  twitter: String
+  siteweb: String
+  linkedin: String
+  letter: String
+  jobs: [String]
+  contract: String
+  experience: String
+  etude: String
+  competences: [String]
+  softskills: [String]
+  disponibility: Float
+  salaire:String
+}
+
+input EntrepriseDetailsInput {
+  name: String
+  tel: String
+  website: String
+  address: String
+  country: String
+  city: String
+  zip_code: String
+}
+
+input UserDetailsInput {
+  password: String!
+}
+
+input ParaInput {
+  id: ID!
+  amount: Int!
+  price: Float!
+}
+
+input ApplicationInput {
+  entreprise_id: ID!
+  offer_id: ID!
+  description: String!
+  address: String
+  second_address: String
+}
+
+type Competence {
+  id: ID!
+  name: String!
+}
+type Jobs {
+  id: ID!
+  name: String!
+}
+type softskills {
+  id: ID!
+  name: String!
+}
+type EntrepriseListe {
+  id: ID!
+  name: String!
+}
+
+input CompetenceInput {
+  name: String!
+}
+
+input CompetenceUpdateInput {
+  name: String!
+}
+
+input JobInput {
+  name: String!
+}
+
+input SoftskillInput {
+  name: String!
+}
+input JobUpdateInput {
+  name: String!
+}
+
+type Job {
+  id: ID!
+  name: String!
+}
+type File {
+  URL: String!
+}
+type Email {
+  id: ID!
+  entreprise_uid: ID!
+  template: String!
+  name: String!
+  subject: String!
+  createdAt: Float
+}
+
+input EmailInput {
+  template: String!
+  subject: String!
+  name: String!
+}
+
+type CV {
+  id: ID!
+  uid: ID!
+  url: String!
+  displayed: Boolean!
+  createdAt: Float!
+}
+
+type Location {
+  latitude: Float!
+  longitude: Float!
+}
+
+input OfferInput {
+  test_id: ID
+  entreprise_id: ID
+  auteur: String
+  name: String
+  contract: String
+  salary: [Int]
+  jobs_ids: [String]
+  address: String
+  city: String
+  salary_type: String
+  expiredAt: String
+  etude: String
+  work_time: String
+  experience: String
+  description_poste: String
+  startEducation: String
+  endEducation: String
+  startApply: String
+  endApply: String
+  startInternship: String
+  endInternship: String
+  offreType: String
+  dureeContract: String
+}
+input ActualiteInput {
+  title: String!
+  description: String
+  auteur: String
+  auteurId: String
+  lien: String
+  startPublication: String
+  entreprise_id: String
+  endPublication: String
+  eventDate: String
+  ent_type: String
+  visibleToAdherent: Boolean
+  visibleToCandidat: Boolean
+}
+input AnnotationInput {
+  commentaire: String!
+  entreprise_id: ID
+  user_id: ID
+  candidate_id: ID
+}
+type User {
+  id: ID!
+  is_blocked: Boolean
+  isleader: String
+  is_holder: Boolean
+  is_blocked_by_admin: Boolean
+  is_verified: Boolean
+  email: String
+  ref: String
+  name: String
+  prenom: String
+  last_Login: String
+  createdAt: String
+  updatedAt: String
+}
+type Admin {
+  id: ID!
+  profile: User!
+  last_name: String
+  first_name: String
+  num: Int!
+  profile_pic_url: String
+  createdAt: Float
+}
+type Favorite {
+  id: ID!
+  candidat_uid: ID!
+  offer_id: ID!
+  offer: Offer!
+  entreprise: Entreprise
+}
+type EntrepriseCandidat {
+  id: ID!
+  mycv: Boolean
+  recieved: Boolean
+  sharedcv: Boolean
+  rating: Int
+  isFavoris: Boolean
+  createdAt: Float
+}
+
+type Candidat {
+  id: ID!
+  num: Int!
+  profile_pic_url: String
+  profile: User!
+  first_name: String!
+  last_name: String!
+  sexe: String
+  age: String
+  tel: String
+  sharedcv: Boolean
+  job_id: String
+  sharedby: String
+  letter: String
+  address: String
+  zip_code: String
+  cv_data: String
+  cv: String
+  twitter: String
+  siteweb: String
+  linkedin: String
+  disponibility: Float
+  requests: [Entreprise]
+  sharedByE: [Entreprise]
+  cv_eng: String
+  cv_eng_data: String
+  entreprises: [EntrepriseCandidat!]!
+  applications: [Application!]! @auth(roles: [ADMIN, CANDIDAT])
+  contract: ContractType
+  jobs: [String]
+  note: Int
+  experience: String
+  etude: EdtueType
+  competences: [String]
+  softskills: [String]
+  createdAt: Float!
+  sharedAt: Float
+  salaire:String
+}
+
+type Entreprise {
+  id: ID!
+  num: Int!
+  profile: User!
+  leaderProfile: User!
+  uid: [ID!]
+  name: String!
+  users: [User]
+  name_of_in_charge: String!
+  email_of_in_charge: String
+  application_email: String
+  ent_type: String
+  banner: String
+  profile_pic_url: String
+  effective: Int
+  member_number: String
+  activity: [String]
+  tel: String!
+  published_offer_number: Int
+  description: String
+  website: String
+  location: Location
+  address: String
+  createdAt: Float
+  company_id: String
+  country: String
+  city: String
+  zip_code: String
+  address_2: String
+  country_2: String
+  city_2: String
+  prenom: String
+  zip_code_2: String
+  applications: [Application!]! @auth(roles: [ADMIN, ENTREPRISE])
+  userrs: [User]
+  youtubeLink: String
+  linkedinLink: String
+}
+
+type Application {
+  id: ID!
+  num: ID!
+  candidat: Candidat!
+  entreprise: Entreprise!
+  experience: String
+  disponibility: Float
+  profile: String
+  offer: Offer!
+  description: String
+  state: ApplicationState!
+  revoke_description: String
+  reject_description: String
+  cancel_description: String
+  createdAt: Float!
+}
+
+type Offer {
+  id: ID!
+  num: ID
+  name: String
+  address: String
+  city: String
+  salary_type: String
+  contract: ContractType
+  job: Job
+  work_time: WorkTimeType
+  experience: ExperienceType
+  etude: EdtueType
+  competences: [Competence!]
+  softskills: [softskills!]
+  jobs: [Jobs!]
+  offreType: String
+  application_number: Int
+  all_application_number: Int
+  applications: [Application!]
+  salary: [Int]
+  test: ID
+  extra_file: String
+  entreprise: Entreprise
+  description_entreprise: String
+  description_poste: String
+  competence_description: String
+  banner: String
+  state: OfferState
+  startEducation: String
+  endEducation: String
+  startApply: String
+  endApply: String
+  startInternship: String
+  endInternship: String
+  typeFormation: String
+  dureeFormation: String
+  dureeContract: String
+  createdAt: Float
+  expiredAt: Float
+  publishedAt: Float
+}
+type Actualite {
+  _id: ID!
+  title: String
+  num: ID
+  description: String
+  ent_type: String
+  lien: String
+  startPublication: String
+  entreprise_id: ID
+  endPublication: String
+  eventDate: String
+  createdAt: String
+  visibleToAdherent: Boolean
+  visibleToCandidat: Boolean
+  entreprise: Entreprise
+}
+type Annotation {
+  id: ID
+  commentaire: String
+  createdAt: String
+  entreprise: Entreprise
+  user: User
+  created: String
+}
+type AdminResultat {
+  admins: [Admin!]
+  totalCount: Int
+}
+type FavoriteResultat {
+  favorites: [Favorite!]
+  totalCount: Int
+}
+type OfferResultat {
+  offers: [Offer!]!
+  totalCount: Int
+}
+
+type ActualiteResult {
+  ActualiteResult: [Actualite!]!
+  totalCount: Int
+}
+type CountResult {
+  Count: [Int]
+}
+type AnnotationResult {
+  AnnotationResult: [Annotation!]!
+  totalCount: Int
+}
+type EntrepriseResultat {
+  entreprises: [Entreprise!]!
+  totalCount: Int
+}
+type UsersResultat {
+  users: [User!]!
+  totalCount: Int
+}
+
+type CandidatResultat {
+  candidats: [Candidat!]!
+  totalCount: Int
+}
+
+type ApplicationResultat {
+  applications: [Application!]!
+  totalCount: Int
+}
+
+type JobResultat {
+  jobs: [Job!]!
+  totalCount: Int
+}
+type SoftskillResultat {
+  softskills: [softskills!]!
+  totalCount: Int
+}
+type CompetenceResultat {
+  competences: [Competence!]!
+  totalCount: Int
+}
+type EntrepriseListeResultat {
+  entreprises: [EntrepriseListe!]!
+  totalCount: Int
+}
+type ApplicationModification {
+  test: Boolean!
+  ApplicationId: ID
+}
+type Stat {
+  name: String
+  nombre: Int
+}
+type Setting {
+  rgpd: String
+  legal: String
+  tutoriel: String
+  cgu: String
+}
+
+type Query {
+  getAdmins(skip: Int, limit: Int): AdminResultat @auth(roles: [ADMIN])
+  getCandidats(skip: Int, limit: Int): CandidatResultat @auth
+  getEntreprises(
+    search: String
+    skip: Int
+    limit: Int
+    ent_type: String
+  ): EntrepriseResultat @auth(roles: [ADMIN, CANDIDAT])
+  getEntrepriseUsers(
+    search: String
+    skip: Int
+    limit: Int
+    id: String!
+  ): UsersResultat! @auth(roles: [ADMIN, ENTREPRISE, CANDIDAT])
+  getAdmin(num: Int): Admin @auth(roles: [ADMIN])
+  getCandidat(id: ID!): Candidat @auth(roles: [ADMIN, ENTREPRISE, CANDIDAT])
+  getCandidatByNum(num: Int!): Candidat
+    @auth(roles: [ADMIN, ENTREPRISE, CANDIDAT])
+  getCandidatProfile: Candidat @auth(roles: CANDIDAT)
+  getEntreprise(id: ID!): Entreprise @auth(roles: [ADMIN, ENTREPRISE, CANDIDAT])
+  getEntrepriseByNum(num: Int): Entreprise
+    @auth(roles: [ADMIN, ENTREPRISE, CANDIDAT])
+  getApplicationByNum(num: Int): Application @auth(roles: [ADMIN, ENTREPRISE])
+  getAssociatedApplication(
+    num: Int!
+    skip: Int
+    limit: Int
+  ): ApplicationResultat @auth(roles: [ADMIN, ENTREPRISE])
+  getEntrepriseProfile: Entreprise @auth(roles: [ADMIN, ENTREPRISE])
+  getMyCVSatat(ent_type: String, uid: String): Int
+    @auth(roles: [ADMIN, ENTREPRISE])
+  getApplications(skip: Int, limit: Int): ApplicationResultat
+    @auth(roles: [ADMIN, CANDIDAT, ENTREPRISE])
+  getApplication(id: ID!): Application!
+    @auth(roles: [ADMIN, CANDIDAT, ENTREPRISE])
+  getApplicationsByState(
+    state: String
+    skip: Int
+    limit: Int
+  ): ApplicationResultat @auth(roles: [ADMIN, CANDIDAT, ENTREPRISE])
+
+  getUserAgeSexeStats: [Int] @auth(roles: [ADMIN])
+
+  getApplicationsByAdherent: [Int] @auth(roles: [ADMIN])
+
+  getOffers(skip: Int, limit: Int): OfferResultat
+    @auth(roles: [ADMIN, CANDIDAT, ENTREPRISE])
+  getOffer(id: ID!): Offer! @auth(roles: [ADMIN, CANDIDAT, ENTREPRISE])
+  getOfferByNum(num: Int!): Offer! @auth(roles: [ADMIN, ENTREPRISE, CANDIDAT])
+  getOffersByState(
+    state: String
+    search: String
+    skip: Int
+    limit: Int
+    field: String
+    direction: Int
+    ent_type: String
+    offreType: String
+  ): OfferResultat @auth(roles: [ADMIN, CANDIDAT, ENTREPRISE])
+  getOffersByStateCount(offreType: String): CountResult
+    @auth(roles: [ADMIN, CANDIDAT, ENTREPRISE])
+  getOffersByStateByAdmin(
+    state: String
+    search: String
+    skip: Int
+    limit: Int
+    field: String
+    direction: Int
+  ): OfferResultat
+  getFormationByEntreprise(
+    search: String
+    skip: Int
+    limit: Int
+    field: String
+    direction: Int
+    field2: String
+    direction2: Int
+    field3: String
+    direction3: Int
+  ): OfferResultat @auth(roles: [ADMIN, CANDIDAT, ENTREPRISE])
+  getOffersByStateByEntreprise(
+    num: Int
+    state: String
+    search: String
+    skip: Int
+    limit: Int
+    field: String
+    direction: Int
+  ): OfferResultat @auth(roles: [ADMIN])
+  getAdminOffersByState(
+    state: String
+    search: String
+    skip: Int
+    limit: Int
+    field: String
+    direction: Int
+  ): OfferResultat @auth(roles: [ADMIN])
+  getOffersStatByWeekEnterprise: [Int] @auth(roles: [ENTREPRISE])
+  getOffersStatByWeek: [Int] @auth(roles: [ADMIN])
+  getUsersSatat: [Int] @auth(roles: [ADMIN])
+  getSharedCVStat: [Stat] @auth(roles: [ADMIN])
+  getAcceptedApplicationsStatByWeek: [Int] @auth(roles: [ADMIN])
+  getOffersActiveStatEnterprise: Int @auth(roles: [ENTREPRISE, ADMIN])
+  getApplicationsStatByWeekEnterprise: [Int] @auth(roles: [ENTREPRISE])
+  getApplicationsStatByWeek: [Int] @auth(roles: [ADMIN])
+  getPendingApplication: Int @auth(roles: [ADMIN, ENTREPRISE])
+  getJobs(search: String, skip: Int, limit: Int): JobResultat
+  getJob(id: ID!, skip: Int, limit: Int): Job! @auth
+  getSoftskill(id: ID!, skip: Int, limit: Int): softskills! @auth
+  getSoftskills(search: String, skip: Int, limit: Int): SoftskillResultat
+
+  getEmails: [Email] @auth(roles: [ADMIN, ENTREPRISE])
+  getEmail(id: ID!): Email! @auth(roles: [ADMIN, ENTREPRISE])
+  getSettings: Setting @auth(roles: [ADMIN, ENTREPRISE, CANDIDAT])
+  getCompetences(search: String, skip: Int, limit: Int): CompetenceResultat
+  getCompetence(id: ID!, skip: Int, limit: Int): Competence! @auth
+  getEntrepriseAutocomplete(
+    search: String
+    status: String
+  ): EntrepriseListeResultat
+
+  getFavorites(skip: Int, limit: Int): FavoriteResultat
+    @auth(roles: [ADMIN, CANDIDAT])
+  getActualite(
+    entreprise_id: String
+    state: String
+    search: String
+    skip: Int
+    limit: Int
+    field: String
+    direction: Int
+    allActus: String
+  ): ActualiteResult
+    @auth(roles: [ENTREPRISE, CANDIDAT, ADMIN, ECOLE, ANONYMOUS])
+  getActualiteByNum(num: Int!): Actualite
+  getAnnotation(entreprise_id: String, candidate_id: String): AnnotationResult
+}
+
+type Mutation {
+  addFavorite(offer_id: ID!): Favorite! @auth(roles: [CANDIDAT])
+  removeFavorite(id: ID!): String @auth(roles: [CANDIDAT])
+  addAdmin(file: Upload, input: AdminAddInput!): Admin! @auth
+  updateAdmin(id: ID!, file: Upload, input: AdminAddInput!): Admin! @auth
+  addCandidat(avatar: Upload, cv: Upload, input: CandidatInput!): Candidat!
+    @auth
+  addCandidatByEntreprise(
+    cv: Upload
+    email: String
+    rating: Int
+    mycv: Boolean
+    sharedcv: Boolean
+    recieved: Boolean
+    existmail: Boolean
+    uid: String
+    input: CandidatEntrepriseInput!
+  ): Candidat! @auth(roles: [ENTREPRISE, ADMIN])
+  addEntreprise(file: Upload, input: EntrepriseInput!): Entreprise! @auth
+  addEntrepriseProfile(input: EntrepriseProfileInput!): Entreprise!
+    @auth(roles: [ENTREPRISE])
+
+  addEcole(file: Upload, input: EntrepriseInput!): Entreprise! @auth
+
+  addEntrepriseWorkHoliday(day: Int!, month: Int!): Entreprise!
+    @auth(roles: [ENTREPRISE])
+
+  blockUser(id: ID!): User! @auth
+  unblockUser(id: ID!): User! @auth
+
+  changeAvatar(file: Upload!): Boolean!
+  changeUserAvatar(id: ID!, file: Upload!): String! @auth
+  updateEntrepriseLogo(file: Upload!, id: ID): String!
+    @auth(roles: [ENTREPRISE, ADMIN])
+  updateCandidatAvatar(file: Upload!): String! @auth(roles: [CANDIDAT])
+  updateEntrepriseBanner(file: Upload!, id: ID): String!
+    @auth(roles: [ENTREPRISE, ADMIN])
+  removeUserAvatar: Boolean @auth(roles: [CANDIDAT, ENTREPRISE])
+  shareCandidatByEntreprise(
+    id: ID!
+    sharedcv: Boolean!
+    recieved: Boolean!
+    rating: Int!
+  ): Candidat @auth(roles: [ENTREPRISE, ADMIN])
+  acceptShareCandidat: Candidat @auth(roles: [CANDIDAT, ADMIN])
+  downloadCandidatByEntreprise(id: ID!, mycv: Boolean!): Candidat
+    @auth(roles: [ENTREPRISE, ADMIN])
+  updateCandidatFavorisStatus(id: ID!, isFavoris: Boolean!): Candidat
+    @auth(roles: [ENTREPRISE, ADMIN])
+  updateUserDetails(id: ID!, input: UserDetailsInput): User! @auth
+  changePassword(oldPassword: String!, password: String!): Boolean!
+  updateUsersStatus(type: String, status: Boolean): Boolean
+    @auth(roles: [ADMIN])
+  updateUserStatus(status: Boolean, id: ID): Boolean
+    @auth(roles: [CANDIDAT, ADMIN])
+  updateEntreprise(id: ID!, input: UpdateEntrepriseInput!): Entreprise!
+    @auth(roles: [ADMIN, ENTREPRISE])
+  updateEntrepriseUser(id: ID!, input: UpdateUserInput!): User!
+    @auth(roles: [ADMIN, ENTREPRISE])
+  exportCandidates: String! @auth(roles: ADMIN)
+  exportEntreprises: String! @auth(roles: ADMIN)
+  exportEcole: String! @auth(roles: ADMIN)
+  updateCandidatDetails(id: ID, input: CandidatDetailsInput!): Candidat!
+    @auth(roles: [ADMIN, CANDIDAT])
+  updateEntrepriseDetails(id: ID, input: EntrepriseDetailsInput): Entreprise!
+    @auth(roles: [ADMIN, ENTREPRISE])
+
+  addEmail(input: EmailInput!): Email! @auth(roles: [CANDIDAT, ENTREPRISE])
+
+  updateEmail(id: ID!, input: EmailInput!): Email!
+    @auth(roles: [CANDIDAT, ENTREPRISE])
+
+  addApplicationByEntreprise(
+    state: String!
+    candidat_id: ID!
+    offer_id: ID!
+  ): ApplicationModification @auth(roles: [ENTREPRISE, ADMIN])
+  addApplicationByCandidat(
+    entreprise_id: ID!
+    offer_id: ID!
+    letter: String
+  ): Boolean @auth(roles: [CANDIDAT])
+  shareMyCV(letter: String): Boolean @auth(roles: [CANDIDAT])
+  shareMyCVState(state: Boolean): Boolean @auth(roles: [CANDIDAT])
+  removeCandidat(id: String!, email: String!): Boolean
+    @auth(roles: [CANDIDAT, ADMIN])
+  removeUserFromEntreprise(num: Int, id: String!): Boolean @auth(roles: [ADMIN])
+  removeEntreprise(id: String!, email: String!): Boolean
+    @auth(roles: [ENTREPRISE, ADMIN])
+  updateApplication(id: ID!): Application
+  updateApplicationState(id: ID!, state: String!): Application!
+    @auth(roles: [ENTREPRISE, CANDIDAT, ADMIN])
+  sendApplicationEmail(id: ID!, state: String!): Application!
+    @auth(roles: [ENTREPRISE, CANDIDAT, ADMIN])
+  addOffer(
+    file: Upload
+    extra_file: Upload
+    competences_ids: [ID!]
+    softskills_ids: [ID!]
+    job_id: ID
+    input: OfferInput!
+    typeFormation: String
+    dureeFormation: String
+  ): Offer! @auth(roles: [ENTREPRISE, ADMIN])
+  updateOffer(
+    id: ID!
+    file: Upload
+    extra_file: Upload
+    competences_ids: [ID!]
+    softskills_ids: [ID!]
+    job_id: ID
+    typeFormation: String
+    dureeFormation: String
+    input: OfferInput!
+  ): Offer! @auth(roles: [ENTREPRISE, ADMIN])
+
+  exportOffer(state: String!): File @auth(roles: [ENTREPRISE, ADMIN])
+
+  updateOfferState(id: ID!, state: String!): Offer!
+    @auth(roles: [ENTREPRISE, ADMIN])
+  updateOffersState(state: String!): Boolean! @auth(roles: ENTREPRISE)
+  duplicateOffer(id: ID!): Offer! @auth(roles: [ENTREPRISE, ADMIN])
+
+  addCV(id: ID, file: Upload!, type: String!): Candidat!
+    @auth(roles: [CANDIDAT, ADMIN])
+  updateSettings(variable: String!, value: String!): Boolean
+    @auth(roles: [ADMIN])
+  addJob(data: [JobInput]): Job! @auth(roles: ADMIN)
+  updateJob(id: ID!, name: String): Job! @auth(roles: ADMIN)
+  removeJob(id: ID!): String! @auth(roles: ADMIN)
+
+  addSoftskill(data: [SoftskillInput]): softskills! @auth(roles: ADMIN)
+  updateSoftskill(id: ID!, name: String): softskills! @auth(roles: ADMIN)
+  removeSoftskill(id: ID!): String! @auth(roles: ADMIN)
+
+  exportJobs: String! @auth(roles: ADMIN)
+  exportCompetence: String! @auth(roles: ADMIN)
+  exportSoftskill: String! @auth(roles: ADMIN)
+
+  addCompetence(data: [CompetenceInput]): Competence! @auth(roles: ADMIN)
+  updateCompetence(id: ID!, name: String!): Competence! @auth(roles: ADMIN)
+  removeCompetence(id: ID!): String! @auth(roles: ADMIN)
+
+  addActualite(input: ActualiteInput!): Actualite!
+    @auth(roles: [ENTREPRISE, ADMIN, ECOLE])
+  deleteActualite(id: ID!): String! @auth(roles: [ENTREPRISE, ADMIN, ECOLE])
+  updateActualite(id: ID!, input: ActualiteInput!): Actualite!
+    @auth(roles: [ENTREPRISE, ADMIN, ECOLE])
+
+  addAnnotation(input: AnnotationInput!): Annotation
+    @auth(roles: [ENTREPRISE, ADMIN, ECOLE])
+}
+
+type Subscription {
+  applicationAdded(id: ID, candidat_id: ID, entreprise_id: ID): Application!
+  applicationUpdated(id: ID, candidat_id: ID, entreprise_id: ID): Application!
+}
+
+directive @auth(roles: [Role] = ADMIN) on QUERY | FIELD
+
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
